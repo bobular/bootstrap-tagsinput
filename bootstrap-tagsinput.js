@@ -11,6 +11,9 @@
         itemText: function (item) {
             return this.itemValue(item);
         },
+        // itemHTML: function (item) {
+        //     return item ? i;
+        // },
         freeInput: true,
         addOnBlur: true,
         maxTags: undefined,
@@ -130,7 +133,13 @@
             self.itemsArray.push(item);
 
             // add a tag element
-            var $tag = $('<span class="tag ' + htmlEncode(tagClass) + '">' + htmlEncode(itemText) + '<span data-role="remove"></span></span>');
+            if (item.html) {
+
+                var $tag = $('<span class="tag ' + htmlEncode(tagClass) + '"> ' + item.html + '<span data-role="remove"></span></span>');
+            } else {
+
+                var $tag = $('<span class="tag ' + htmlEncode(tagClass) + '">' + htmlEncode(itemText) + '<span data-role="remove"></span></span>');
+            }
             $tag.data('item', item);
             self.findInputWrapper().before($tag);
             $tag.after(' ');

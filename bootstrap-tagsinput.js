@@ -11,9 +11,9 @@
         itemText: function (item) {
             return this.itemValue(item);
         },
-        // itemHTML: function (item) {
-        //     return item ? i;
-        // },
+        //itemHTML: function (item) {
+        //    return this.itemValue(item);
+        //},
         freeInput: true,
         addOnBlur: true,
         maxTags: undefined,
@@ -101,7 +101,8 @@
 
             var itemValue = self.options.itemValue(item),
                 itemText = self.options.itemText(item),
-                tagClass = self.options.tagClass(item);
+                tagClass = self.options.tagClass(item),
+                itemHTML = self.options.itemHTML(item);
 
             // Ignore items allready added
             var existing = $.grep(self.itemsArray, function (item) {
@@ -133,9 +134,10 @@
             self.itemsArray.push(item);
 
             // add a tag element
-            if (item.html) {
+            if (itemHTML) {
 
-                var $tag = $('<span class="tag ' + htmlEncode(tagClass) + '"> ' + item.html + '<span data-role="remove"></span></span>');
+                var $tag = $('<span class="tag ' + htmlEncode(tagClass) + '"> ' + itemHTML + '<span' +
+                    ' data-role="remove"></span></span>');
             } else {
 
                 var $tag = $('<span class="tag ' + htmlEncode(tagClass) + '">' + htmlEncode(itemText) + '<span data-role="remove"></span></span>');
